@@ -14,21 +14,19 @@ public class HorseRace implements ActionListener{
 
 	public void init(){
 		FRAME_MAIN = new JFrame("HORSE-RACING");
-
-		PANEL_RACE = new JPanel();
-		
+		PANEL_RACE = new JPanel();		
 		BUTTON_START = new JButton("READY!");
-
 		TEXT_SPEED = new JTextField(5);
-
 		LABEL_HORSE1 = new JLabel(new ImageIcon("idle1.png"));
 		LABEL_HORSE2 = new JLabel(new ImageIcon("idle2.png"));
 		LABEL_HORSE3 = new JLabel(new ImageIcon("idle3.png"));
 		LABEL_HORSE4 = new JLabel(new ImageIcon("idle4.png"));
 		LABEL_HORSE5 = new JLabel(new ImageIcon("idle5.png"));
-		LABEL_TRACK  = new JLabel(new ImageIcon("track.png"));
-		
+		LABEL_TRACK  = new JLabel(new ImageIcon("track.png"));		
 		LABEL_POS = new JTextArea[5];
+		SCREENSIZE = Toolkit.getDefaultToolkit().getScreenSize();
+		double CENTER_X = SCREENSIZE.width/2;
+		double CENTER_Y = SCREENSIZE.height/2;
 
 		intX = new int[5];
 
@@ -42,11 +40,21 @@ public class HorseRace implements ActionListener{
 			FRAME_MAIN.add(LABEL_POS[ctr]);
 			
 			switch(ctr){
-				case 0: LABEL_POS[ctr].setForeground(Color.BLUE); break;
-				case 1: LABEL_POS[ctr].setForeground(Color.RED); break;
-				case 2: LABEL_POS[ctr].setForeground(Color.GREEN); break;
-				case 3: LABEL_POS[ctr].setForeground(Color.ORANGE); break;
-				case 4: LABEL_POS[ctr].setForeground(Color.BROWN); break;				
+				case 0:
+					LABEL_POS[ctr].setForeground(Color.BLUE); 
+					break;
+				case 1: 
+					LABEL_POS[ctr].setForeground(Color.RED); 
+					break;
+				case 2: 
+					LABEL_POS[ctr].setForeground(Color.GREEN); 
+					break;
+				case 3: 
+					LABEL_POS[ctr].setForeground(Color.ORANGE); 
+					break;
+				case 4: 
+					LABEL_POS[ctr].setForeground(Color.BLACK); 
+					break;				
 			}
 			
 			x_pos += 110;
@@ -75,19 +83,30 @@ public class HorseRace implements ActionListener{
 		PANEL_RACE.add(LABEL_TRACK);
 
 		PANEL_RACE.setLayout(null);
-		PANEL_RACE.setBounds(0, 0, 800, 500);
-		PANEL_RACE.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		PANEL_RACE.setBounds(0, 0, SCREENSIZE.width, SCREENSIZE.height);
+		PANEL_RACE.setBackground(new Color(34, 177, 76));
+		//PANEL_RACE.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		FRAME_MAIN.add(PANEL_RACE);
 
 		FRAME_MAIN.setLayout(null);
-		FRAME_MAIN.setSize(800, 500);
+		FRAME_MAIN.setSize(SCREENSIZE.width, SCREENSIZE.height);
 		FRAME_MAIN.setLocationRelativeTo(null);
 		FRAME_MAIN.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		FRAME_MAIN.setVisible(true);
+		FRAME_MAIN.setBackground(new Color(34, 177, 76));
 		FRAME_MAIN.setResizable(false);
+		FRAME_MAIN.setUndecorated(true);
+		FRAME_MAIN.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e){
+
+		if(e.getSource() == BUTTON_START){
+			startButtonAction();
+		}
+		
+	}
+
+	public void startButtonAction(){
 
 		LABEL_HORSE1.setBounds(10, 10, 100, horseHeight);
 		LABEL_HORSE2.setBounds(10, 70, 100, horseHeight);
@@ -131,6 +150,7 @@ public class HorseRace implements ActionListener{
 
 		start = 1;
 		BUTTON_START.setText("GO!");
+
 	}
 
 	class HorseAnimation implements ActionListener{
@@ -160,7 +180,13 @@ public class HorseRace implements ActionListener{
 						ranks[finished] = horse;
 						LABEL_HORSE1.setBounds(670, 10, 100, horseHeight);
 						LABEL_HORSE1.setIcon(new ImageIcon ("idle1.png"));
+						LABEL_POS[finished].setForeground(Color.BLUE);
 						LABEL_POS[finished].setText("HORSE-1");
+				 		try{
+							Thread.sleep(finishDelay);
+						} catch(Exception timerExcptn){
+							timerExcptn.printStackTrace();
+						}
 				 		TIMER_MOVEMENT1.stop();
 						finished++;
 				 	}
@@ -173,7 +199,13 @@ public class HorseRace implements ActionListener{
 						ranks[finished] = horse;
 						LABEL_HORSE2.setBounds(670, 70, 100, horseHeight);
 						LABEL_HORSE2.setIcon(new ImageIcon ("idle2.png"));
+						LABEL_POS[finished].setForeground(Color.RED);
 						LABEL_POS[finished].setText("HORSE-2");
+				 		try{
+							Thread.sleep(finishDelay);
+						} catch(Exception timerExcptn){
+							timerExcptn.printStackTrace();
+						}
 				 		TIMER_MOVEMENT2.stop();
 						finished++;
 				 	}
@@ -186,7 +218,13 @@ public class HorseRace implements ActionListener{
 						ranks[finished] = horse;
 						LABEL_HORSE3.setBounds(670, 140, 100, horseHeight);
 						LABEL_HORSE3.setIcon(new ImageIcon ("idle3.png"));
+						LABEL_POS[finished].setForeground(Color.GREEN);
 						LABEL_POS[finished].setText("HORSE-3");
+				 		try{
+							Thread.sleep(finishDelay);
+						} catch(Exception timerExcptn){
+							timerExcptn.printStackTrace();
+						}
 				 		TIMER_MOVEMENT3.stop();
 						finished++;
 				 	}
@@ -199,7 +237,13 @@ public class HorseRace implements ActionListener{
 						ranks[finished] = horse;
 						LABEL_HORSE4.setBounds(670, 220, 100, horseHeight);
 						LABEL_HORSE4.setIcon(new ImageIcon ("idle4.png"));
+						LABEL_POS[finished].setForeground(Color.ORANGE);
 						LABEL_POS[finished].setText("HORSE-4");
+				 		try{
+							Thread.sleep(finishDelay);
+						} catch(Exception timerExcptn){
+							timerExcptn.printStackTrace();
+						}
 				 		TIMER_MOVEMENT4.stop();
 						finished++;
 				 	}
@@ -212,7 +256,13 @@ public class HorseRace implements ActionListener{
 						ranks[finished] = horse;
 						LABEL_HORSE5.setBounds(670, 300, 100, horseHeight);
 						LABEL_HORSE5.setIcon(new ImageIcon ("idle5.png"));
+						LABEL_POS[finished].setForeground(Color.BLACK);
 						LABEL_POS[finished].setText("HORSE-5");
+				 		try{
+							Thread.sleep(finishDelay);
+						} catch(Exception timerExcptn){
+							timerExcptn.printStackTrace();
+						}
 				 		TIMER_MOVEMENT5.stop();
 					  	finished++;
 				 	}
@@ -258,6 +308,16 @@ public class HorseRace implements ActionListener{
 				TEXT_SPEED.setEnabled(true);
 				BUTTON_START.setEnabled(true);
 				BUTTON_START.setText("READY!");
+
+				// UNCOMMENT FOR AUTO-START
+				// try{
+				// 	Thread.sleep(3000);
+				// } catch(Exception timerExcptn){
+				// 	timerExcptn.printStackTrace();
+				// }
+
+				//start = 1;
+				//startButtonAction();
 				
 			} else {
 				BUTTON_START.setEnabled(false);
@@ -292,6 +352,8 @@ public class HorseRace implements ActionListener{
 	private Timer  TIMER_MOVEMENT4;
 	private Timer  TIMER_MOVEMENT5;
 
+	private Dimension SCREENSIZE;
+
 	private int intX[];
 	private int x_pos = 220;
 	private int ranks[] = new int[6];
@@ -299,4 +361,5 @@ public class HorseRace implements ActionListener{
 	private int start = 0;
 	private int horseHeight = 70;
 	private int animSpeed;
+	private int finishDelay = 1000;
 }

@@ -1,2 +1,3 @@
-@echo off
+javac HorseRace.java
 java HorseRace
+pause
